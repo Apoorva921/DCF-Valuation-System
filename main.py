@@ -95,18 +95,17 @@ def multiple_tickers():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--p', '--period', help = 'years to forecast', type = int, default =  5)
+    parser.add_argument('--p', '--period', help='years to forecast', type=int, default=10)
     parser.add_argument('--t', '--ticker', help = 'pass a single ticker to do historical DCF', type = str, default = 'AAPL')
     parser.add_argument('--y', '--years', help = 'number of years to compute DCF analysis for', type = int, default = 1)
     parser.add_argument('--i', '--interval', help = 'interval period for each calc, either "annual" or "quarter"', default = 'annual')
     parser.add_argument('--s', '--step_increase', help = 'specify step increase for EG, CG, PG to enable comparisons.', type = float, default = 0)
     parser.add_argument('--steps', help = 'steps to take if --s is > 0', default = 5)
     parser.add_argument('--v', '--variable', help = 'if --step_increase is specified, must specifiy variable to increase from: [earnings_growth_rate, discount_rate]', default = None)
-    parser.add_argument('--d', '--discount_rate', help = 'discount rate for future cash flow to firm', default = 0.1)
-    parser.add_argument('--eg', '--earnings_growth_rate', help = 'growth in revenue, YoY',  type = float, default = .05)
+    parser.add_argument('--d', '--discount_rate', help='discount rate for future cash flow to firm', default=0.08)
+    parser.add_argument('--eg', '--earnings_growth_rate', help='growth in revenue, YoY', type=float, default=0.10)
     parser.add_argument('--cg', '--cap_ex_growth_rate', help = 'growth in cap_ex, YoY', type = float, default = 0.045)
     parser.add_argument('--pg', '--perpetual_growth_rate', help = 'for perpetuity growth terminal value', type = float, default = 0.05)
-    parser.add_argument('--apikey', help='API key for financialmodelingprep.com', default=os.environ.get('APIKEY'))
-
+    parser.add_argument('--apikey', help='API key for financialmodelingprep.com', default="upa59kW4IvsmcFDGmbIkUYmbwAzmzfnD")
     args = parser.parse_args()
     main(args)
