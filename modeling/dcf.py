@@ -72,7 +72,7 @@ def enterprise_value(ticker, period, discount_rate, growth_rate, perpetual_growt
         operating_cf = cashflow.loc['Total Cash From Operating Activities'][0]
         capex = cashflow.loc['Capital Expenditures'][0]
     except Exception:
-        print("⚠️ Using fallback values")
+        print("WARNING: Using fallback values")
         operating_cf = 1e11
         capex = -2e10
 

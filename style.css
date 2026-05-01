@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+    --bg-primary: #0E1117;
+    --bg-secondary: #161B22;
+    --bg-sidebar: #0D1117;
+    --accent-primary: #00D4FF;
+    --accent-secondary: #0080FF;
+    --text-primary: #FFFFFF;
+    --text-secondary: #8B949E;
+    --success: #238636;
+    --warning: #D29922;
+    --danger: #DA3633;
+    --border-color: #30363D;
+    --card-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+
+.stApp {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Typography */
+* {
+    font-family: 'Inter', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6, p, span, label, div {
+    color: var(--text-primary) !important;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background-color: var(--bg-sidebar) !important;
+    border-right: 1px solid var(--border-color) !important;
+}
+
+[data-testid="stSidebar"] * {
+    color: var(--text-primary) !important;
+}
+
+/* Input Boxes - Dark Mode */
+.stTextInput input, .stNumberInput input, .stSelectSlider div {
+    background-color: #161B22 !important;
+    color: #FFFFFF !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+/* Metric Cards */
+.stMetric {
+    background: #161B22 !important;
+    border: 1px solid var(--border-color) !important;
+    padding: 20px !important;
+    border-radius: 12px !important;
+}
+
+.stMetric [data-testid="stMetricValue"] {
+    color: var(--accent-primary) !important;
+    font-weight: 800 !important;
+}
+
+/* Dashboard Cards */
+.card {
+    background: #161B22 !important;
+    border: 1px solid var(--border-color) !important;
+    padding: 24px !important;
+    border-radius: 16px !important;
+    box-shadow: var(--card-shadow) !important;
+    margin-bottom: 20px !important;
+}
+
+/* Primary Button */
+.stButton>button {
+    background-color: var(--accent-primary) !important;
+    color: #000000 !important;
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+    border: none !important;
+}
+
+.stButton>button:hover {
+    background-color: #00B4DB !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Tabs */
+.stTabs [data-baseweb="tab-list"] {
+    background-color: transparent !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+.stTabs [data-baseweb="tab"] {
+    color: var(--text-secondary) !important;
+    font-weight: 600 !important;
+}
+
+.stTabs [aria-selected="true"] {
+    color: var(--accent-primary) !important;
+    border-bottom: 2px solid var(--accent-primary) !important;
+}
+
+/* Plots */
+.js-plotly-plot .plotly .bg {
+    fill: transparent !important;
+}

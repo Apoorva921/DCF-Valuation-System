@@ -1,53 +1,48 @@
 import numpy as np
-import matplotlib.pyplot as plt
 from modeling.dcf import enterprise_value
 
-def run_monte_carlo(ticker, simulations=300):
-
+def run_monte_carlo(ticker, simulations=500, growth_mean=0.12, growth_std=0.03, wacc_mean=0.08, wacc_std=0.01):
+    """
+    Institutional Grade Monte Carlo Simulation.
+    Models growth and WACC as stochastic variables to generate a valuation distribution.
+    """
     valuations = []
 
-    for _ in range(simulations):
+    # Vectorized simulation for performance
+    growth_rates = np.random.normal(growth_mean, growth_std, simulations)
+    discount_rates = np.random.normal(wacc_mean, wacc_std, simulations)
+    
+    # Clipped to realistic bounds
+    growth_rates = np.clip(growth_rates, 0.01, 0.30)
+    discount_rates = np.clip(discount_rates, 0.04, 0.20)
 
-        growth_rate = np.random.normal(0.10, 0.02)
-        discount_rate = np.random.normal(0.08, 0.01)
-
-        growth_rate = max(0.02, min(growth_rate, 0.20))
-        discount_rate = max(0.05, min(discount_rate, 0.15))
-
+    for i in range(simulations):
         val = enterprise_value(
             ticker,
             10,
-            discount_rate,
-            growth_rate,
-            0.05
+            discount_rates[i],
+            growth_rates[i],
+            0.03 # Terminal growth
         )
-
         valuations.append(val)
 
-    return valuations
-
-
-def plot_simulation(valuations):
-
-    fig, ax = plt.subplots()
-
-    ax.hist(valuations, bins=30)
-    ax.set_title("Monte Carlo Valuation Distribution")
-    ax.set_xlabel("Enterprise Value")
-    ax.set_ylabel("Frequency")
-
-    return fig
-
+    return np.array(valuations)
 
 def get_statistics(valuations):
-
-    valuations = np.array(valuations)
-
+    """
+    Calculates institutional risk metrics.
+    """
+    if len(valuations) == 0:
+        return {}
+        
     return {
-        "mean": float(valuations.mean()),
+        "mean": float(np.mean(valuations)),
         "median": float(np.median(valuations)),
-        "min": float(valuations.min()),
-        "max": float(valuations.max()),
+        "std": float(np.std(valuations)),
+        "min": float(np.min(valuations)),
+        "max": float(np.max(valuations)),
         "p10": float(np.percentile(valuations, 10)),
         "p90": float(np.percentile(valuations, 90)),
+        "var_95": float(np.percentile(valuations, 5)), # Value at Risk
+        "upside_prob": float(np.mean(valuations > np.median(valuations))) # Probability of upside
     }
